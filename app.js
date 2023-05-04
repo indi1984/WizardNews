@@ -1,7 +1,11 @@
 const express = require('express');
 const path = require('path');
 const volleyball = require('volleyball');
+const timeAgo = require('node-time-ago');
 const postBank = require ('./postBank');
+// const postList = require ('./views/postList.js');
+// const postDetails = require ('./views/postDetails.html');
+// const errorHandler = require ('./views/errorHandler.html');
 
 const app = express();
 const PORT = 3000;
@@ -10,10 +14,12 @@ app.use(volleyball);
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('views', path.join(__dirname, 'views'));
 
 app.get("/", (req, res) => {
   const posts = postBank.list();
-  const html = (/*html*/`
+  // res.send(postList(posts));
+  res.send(/*html*/`
     <!DOCTYPE html>
       <html>
       <head>
@@ -39,7 +45,6 @@ app.get("/", (req, res) => {
       </body>
     </html>
   `)
-  res.send(html);
 });
 
 app.get('/posts/:id', (req, res, next) => {
@@ -48,7 +53,8 @@ app.get('/posts/:id', (req, res, next) => {
   if (!post.id) {
     next(err);
   } else {
-    res.send(/*html*/ `
+    // res.send(postDetails(post));
+    res.send(/*html*/`
       <!DOCTYPE html>
         <html>
         <head>
@@ -80,22 +86,22 @@ app.get('/posts/:id', (req, res, next) => {
 
 app.use((err, req, res, next) => {
   res.status(404);
-  const html = (/*html*/`
+  // res.send(errorHandler());
+  res.send(/*html*/`
     <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Wizard News</title>
-      <link rel="stylesheet" href="/style.css" />
-    </head>
-    <body>
-      <header><img src="/logo.png"/>Wizard News</header>
-      <div class="not-found">
-        <p>404: Page Not Found</p>
-      </div>
-    </body>
+      <html>
+      <head>
+        <title>Wizard News</title>
+        <link rel="stylesheet" href="/style.css" />
+      </head>
+      <body>
+        <header><img src="/logo.png"/>Wizard News</header>
+        <div class="not-found">
+          <p>404: Page Not Found</p>
+        </div>
+      </body>
     </html>
   `)
-  res.send(html);
 });
 
 app.listen(PORT, () => {
