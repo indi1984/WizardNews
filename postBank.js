@@ -1,5 +1,3 @@
-const timeAgo = require('node-time-ago');
-
 const data = [
     { id: 1, upvotes: 257, title: "Lorem Ipsum Dolor Sit Amet", content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit in dui eget dignissim. Etiam cursus ex eget iaculis luctus. Curabitur sagittis orci a tellus vulputate. Integer ut sapien massa. Nunc massa tortor, tincidunt vel sem sed, facilisis posuere leo. Donec sed massa feugiat odio rhoncus suscipit aliquet id.', name: 'Evazahr', date: new Date(Date.now() - 14400000) },
     { id: 2, upvotes: 221, title: "Integer Purus Leo", content: "Integer purus leo, condimentum ac sapien eu, consequat cursus dui. Maecenas ultricies velit nunc, vel ultrices ex euismod eget. Vivamus nisl nulla, aliquet sit amet nisl vel, consequat ultrices erat. Nam egestas eget tellus quis varius. Nunc quis nulla feugiat, facilisis ipsum et, egestas justo. Suspendisse scelerisque pretium lorem, eget.", name: "Druxium", date: new Date(Date.now() - 86400000) },
