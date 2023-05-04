@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
                 <small>(by ${post.name})</small>
               </p>
               <small class="news-info">
-                ${post.upvotes} upvotes | ${post.date}
+                ${post.upvotes} upvotes | ${timeAgo(post.date)}
               </small>
             </div>`
           ).join('')}
