@@ -3,9 +3,9 @@ const path = require('path');
 const volleyball = require('volleyball');
 const timeAgo = require('node-time-ago');
 const postBank = require ('./postBank');
-// const postList = require ('./views/postList.js');
-// const postDetails = require ('./views/postDetails.html');
-// const errorHandler = require ('./views/errorHandler.html');
+// const postList = require ('./views/postList');
+// const postDetails = require ('./views/postDetails');
+// const errorHandler = require ('./views/errorHandler');
 
 const app = express();
 const PORT = 3000;
@@ -14,7 +14,9 @@ app.use(volleyball);
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('views', path.join(__dirname, 'views'));
+// app.engine('html', require().renderFile);
+// app.set('view engine', '');
+// app.set('views', path.join(__dirname, 'views'));
 
 app.get("/", (req, res) => {
   const posts = postBank.list();
