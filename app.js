@@ -9,6 +9,27 @@ const PORT = 3000;
 app.use(volleyball);
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(errorHandler);
+
+function errorHandler(err, req, res, next) {
+    const html = (/*html*/`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Wizard News</title>
+        <link rel="stylesheet" href="/style.css" />
+      </head>
+      <body>
+        <header><img src="/logo.png"/>Wizard News</header>
+        <div class="not-found">
+          <p>404: Page Not Found</p>
+        </div>
+      </body>
+      </html>
+    `)
+    res.status(404);
+    res.send(html)
+};
 
 app.get("/", (req, res) => {
   const posts = postBank.list();
@@ -41,28 +62,10 @@ app.get("/", (req, res) => {
   res.send(html);
 });
 
-app.get('/posts/:id', (req, res) => {
+app.get('/posts/:id', (req, res, next) => {
   const id = req.params.id;
   const post = postBank.find(id);
-  if (!post.id) {
-    res.status(404)
-    const html = (/*html*/`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Wizard News</title>
-        <link rel="stylesheet" href="/style.css" />
-      </head>
-      <body>
-        <header><img src="/logo.png"/>Wizard News</header>
-        <div class="not-found">
-          <p>404: Page Not Found</p>
-        </div>
-      </body>
-      </html>
-    `)
-    res.send(html)
-  } else {
+    if (post.id) {
     res.send(/*html*/ `
       <!DOCTYPE html>
         <html>
@@ -89,8 +92,11 @@ app.get('/posts/:id', (req, res) => {
           </div>
         </body>
       </html>
-    `);
-  }
+    `)
+  } else {
+    next(err);
+  };
+
 });
 
 app.listen(PORT, () => {
