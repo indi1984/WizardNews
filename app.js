@@ -6,7 +6,7 @@ const postRoutes = require ('./routes/posts');
 const errorHandler = require ('./middleware/errorHandler');
 
 const app = express();
-const PORT = 3000;
+const { PORT = 3000 } = process.env;
 
 app.use(volleyball);
 app.use(express.urlencoded({extended: true}));
