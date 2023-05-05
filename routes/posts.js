@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const postBank = require ('../postBank');
+const postBank = require ('../seeds/postBank');
 const timeAgo = require('node-time-ago');
 // const postDetails = require ('../views/postDetails');
 
