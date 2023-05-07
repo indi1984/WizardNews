@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
             <div class='news-item'>
               <p>
                 <span class="news-position">${post.id}. ▲</span>
-                ${post.title}
+                  <a href="/posts/${post.id}">${post.title}</a>
                 <small>(by ${post.name})</small>
               </p>
               <small class="news-info">
